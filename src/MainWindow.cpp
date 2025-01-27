@@ -50,22 +50,24 @@ MainWindow::MainWindow(QWidget *parent)
    });
    connect(ui->button_upscale, &QPushButton::clicked, [this]() {
       QDialog dialog(this);
-      dialog.setWindowTitle("Выберите размер изображения");
+      dialog.setWindowTitle("Размер");
+      dialog.setWindowIcon(QIcon(style()->standardIcon(QStyle::SP_MessageBoxQuestion)));
 
       QVBoxLayout layoutV(&dialog);
-
       QHBoxLayout layoutH;
 
       QSpinBox *widthSpinBox = new QSpinBox();
       widthSpinBox->setRange(1, 10000);
-      widthSpinBox->setPrefix("Ширина: ");
+      widthSpinBox->setPrefix("x: ");
       widthSpinBox->setValue(paintArea->getImage().width());
+      widthSpinBox->setButtonSymbols(QAbstractSpinBox::NoButtons);
       layoutH.addWidget(widthSpinBox);
 
       QSpinBox *heightSpinBox = new QSpinBox();
       heightSpinBox->setRange(1, 10000);
-      heightSpinBox->setPrefix("Высота: ");
+      heightSpinBox->setPrefix("y: ");
       heightSpinBox->setValue(paintArea->getImage().height());
+      heightSpinBox->setButtonSymbols(QAbstractSpinBox::NoButtons);
       layoutH.addWidget(heightSpinBox);
 
       QPushButton *okButton = new QPushButton("OK");
@@ -101,7 +103,6 @@ MainWindow::MainWindow(QWidget *parent)
       paintArea->drawSize = ui->Slider_DrawSize->value();
       ui->label_DrawSize->setText("Размер кисти: " + QString::number(ui->Slider_DrawSize->value()) + "px");
    });
-
    connect(ui->SecondColor, &QPushButton::clicked, [this]() {
       if (ui->SecondColor->styleSheet() == QString("background-color: %1;border:1px solid black;").arg(secondColor.name())) {
          QColor temp = secondColor;
@@ -176,18 +177,6 @@ MainWindow::MainWindow(QWidget *parent)
    updateColors();
    ui->FirstColor->setStyleSheet(QString("background-color: %1;border:2px solid blue;").arg(activeColor.name()));
    ui->SecondColor->setStyleSheet(QString("background-color: %1;border:1px solid black;").arg(secondColor.name()));
-}
-void MainWindow::keyPressEvent(QKeyEvent *event)
-{
-   paintArea->keyPressEvent(event);
-}
-void MainWindow::keyReleaseEvent(QKeyEvent *event)
-{
-   paintArea->keyReleaseEvent(event);
-}
-void MainWindow::wheelEvent(QWheelEvent *event)
-{
-   paintArea->wheelEvent(event);
 }
 void MainWindow::updateColors(QPushButton *Color, QColor &currentColor)
 {

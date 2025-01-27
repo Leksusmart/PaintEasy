@@ -28,12 +28,12 @@ private slots:
    void closeEvent(QCloseEvent *event) override;
    void OpenFile();
    void SaveFile(bool chooseLocation = false);
-   void mousePressEvent(QMouseEvent *event) override;   // Обработка нажатия мыши
-   void mouseMoveEvent(QMouseEvent *event) override;    // Обработка перемещения мыши
-   void mouseReleaseEvent(QMouseEvent *event) override; // Обработка отпускания мыши
-   void wheelEvent(QWheelEvent *event) override;
-   void keyPressEvent(QKeyEvent *event) override;
-   void keyReleaseEvent(QKeyEvent *event) override;
+   void mousePressEvent(QMouseEvent *event) override;
+   void mouseMoveEvent(QMouseEvent *event) override;
+   void mouseReleaseEvent(QMouseEvent *event) override;
+   void keyPressEvent(QKeyEvent *event) override { paintArea->keyPressEvent(event); }
+   void keyReleaseEvent(QKeyEvent *event) override { paintArea->keyReleaseEvent(event); }
+   void wheelEvent(QWheelEvent *event) override { paintArea->wheelEvent(event); }
 
 private:
    Ui::MainWindow *ui;
@@ -42,8 +42,8 @@ private:
    bool dragging = false;
    QPoint lastMousePos;
 
-   QColor activeColor = qRgb(0, 0, 0);
-   QColor secondColor = qRgb(200, 0, 0);
+   QColor activeColor = qRgb(0, 0, 0);   //Standart active black color
+   QColor secondColor = qRgb(200, 0, 0); //Standart second red color
 };
 
 #endif // MAINWINDOW_H
