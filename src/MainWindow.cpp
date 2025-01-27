@@ -31,23 +31,23 @@ MainWindow::MainWindow(QWidget *parent)
    connect(ui->button_pencil, &QPushButton::clicked, [this]() {
       paintArea->isEraserActive = false;
       paintArea->isFillActive = false;
-      ui->button_pencil->setStyleSheet("border:2px solid blue;border-radius: 3px;background-color: rgb(126, 126, 126);");
-      ui->button_eraser->setStyleSheet("border:1px solid black;border-radius: 3px;background-color: rgb(126, 126, 126);");
-      ui->button_fill->setStyleSheet("border:1px solid black;border-radius: 3px;background-color: rgb(126, 126, 126);");
+      ui->button_pencil->setStyleSheet("border:2px solid blue;border-radius: 3px;background-color: white;");
+      ui->button_eraser->setStyleSheet("border:1px solid black;border-radius: 3px;background-color: white;");
+      ui->button_fill->setStyleSheet("border:1px solid black;border-radius: 3px;background-color: white;");
    });
    connect(ui->button_eraser, &QPushButton::clicked, [this]() {
       paintArea->isEraserActive = true;
       paintArea->isFillActive = false;
-      ui->button_pencil->setStyleSheet("border:1px solid black;border-radius: 3px;background-color: rgb(126, 126, 126);");
-      ui->button_eraser->setStyleSheet("border:2px solid blue;border-radius: 3px;background-color: rgb(126, 126, 126);");
-      ui->button_fill->setStyleSheet("border:1px solid black;border-radius: 3px;background-color: rgb(126, 126, 126);");
+      ui->button_pencil->setStyleSheet("border:1px solid black;border-radius: 3px;background-color: white;");
+      ui->button_eraser->setStyleSheet("border:2px solid blue;border-radius: 3px;background-color: white;");
+      ui->button_fill->setStyleSheet("border:1px solid black;border-radius: 3px;background-color: white;");
    });
    connect(ui->button_fill, &QPushButton::clicked, [this]() {
       paintArea->isEraserActive = false;
       paintArea->isFillActive = true;
-      ui->button_pencil->setStyleSheet("border:1px solid black;border-radius: 3px;background-color: rgb(126, 126, 126);");
-      ui->button_eraser->setStyleSheet("border:1px solid black;border-radius: 3px;background-color: rgb(126, 126, 126);");
-      ui->button_fill->setStyleSheet("border:2px solid blue;border-radius: 3px;background-color: rgb(126, 126, 126);");
+      ui->button_pencil->setStyleSheet("border:1px solid black;border-radius: 3px;background-color: white;");
+      ui->button_eraser->setStyleSheet("border:1px solid black;border-radius: 3px;background-color: white;");
+      ui->button_fill->setStyleSheet("border:2px solid blue;border-radius: 3px;background-color: white;");
    });
    connect(ui->Slider_DrawSize, &QSlider::valueChanged, [this]() {
       paintArea->drawSize = ui->Slider_DrawSize->value();
@@ -56,26 +56,26 @@ MainWindow::MainWindow(QWidget *parent)
    updateColors();
 
    ui->FirstColor->setStyleSheet(QString("background-color: %1;border:2px solid blue;").arg(activeColor.name()));
-   ui->SecondColor->setStyleSheet(QString("background-color: %1;border:2px solid black;").arg(secondColor.name()));
+   ui->SecondColor->setStyleSheet(QString("background-color: %1;border:1px solid black;").arg(secondColor.name()));
 
    connect(ui->SecondColor, &QPushButton::clicked, [this]() {
-      if (ui->SecondColor->styleSheet() == QString("background-color: %1;border:2px solid black;").arg(secondColor.name())) {
+      if (ui->SecondColor->styleSheet() == QString("background-color: %1;border:1px solid black;").arg(secondColor.name())) {
          QColor temp = secondColor;
          secondColor = activeColor;
          activeColor = temp;
          updateColors();
          ui->SecondColor->setStyleSheet(QString("background-color: %1;border:2px solid blue;").arg(activeColor.name()));
-         ui->FirstColor->setStyleSheet(QString("background-color: %1;border:2px solid black;").arg(secondColor.name()));
+         ui->FirstColor->setStyleSheet(QString("background-color: %1;border:1px solid black;").arg(secondColor.name()));
       }
    });
    connect(ui->FirstColor, &QPushButton::clicked, [this]() {
-      if (ui->FirstColor->styleSheet() == QString("background-color: %1;border:2px solid black;").arg(secondColor.name())) {
+      if (ui->FirstColor->styleSheet() == QString("background-color: %1;border:1px solid black;").arg(secondColor.name())) {
          QColor temp = secondColor;
          secondColor = activeColor;
          activeColor = temp;
          updateColors();
          ui->FirstColor->setStyleSheet(QString("background-color: %1;border:2px solid blue;").arg(activeColor.name()));
-         ui->SecondColor->setStyleSheet(QString("background-color: %1;border:2px solid black;").arg(secondColor.name()));
+         ui->SecondColor->setStyleSheet(QString("background-color: %1;border:1px solid black;").arg(secondColor.name()));
       }
    });
 

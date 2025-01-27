@@ -13,8 +13,21 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(213, 213, 213);
+color: rgb(0, 0, 0);</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
     <item>
      <widget class="QGroupBox" name="tools">
       <property name="minimumSize">
@@ -30,7 +43,9 @@
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">border: 2px solid black;</string>
+       <string notr="true">border:none;
+border-top: 1px solid black;
+background-color: rgb(232, 232, 232);</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -41,10 +56,10 @@
       <widget class="QPushButton" name="button_pencil">
        <property name="geometry">
         <rect>
-         <x>70</x>
-         <y>20</y>
-         <width>50</width>
-         <height>50</height>
+         <x>80</x>
+         <y>35</y>
+         <width>30</width>
+         <height>30</height>
         </rect>
        </property>
        <property name="sizePolicy">
@@ -55,26 +70,27 @@
        </property>
        <property name="minimumSize">
         <size>
-         <width>50</width>
-         <height>50</height>
+         <width>30</width>
+         <height>30</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>50</width>
-         <height>50</height>
+         <width>30</width>
+         <height>30</height>
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true">border:2px solid blue;border-radius: 3px;background-color: rgb(126, 126, 126);</string>
+        <string notr="true">border:2px solid blue;border-radius: 3px;background-color: rgb(255, 255, 255);</string>
        </property>
        <property name="icon">
-        <iconset theme="QIcon::ThemeIcon::MailMessageNew"/>
+        <iconset resource="resources.qrc">
+         <normaloff>:/image/pencil.png</normaloff>:/image/pencil.png</iconset>
        </property>
        <property name="iconSize">
         <size>
-         <width>45</width>
-         <height>45</height>
+         <width>25</width>
+         <height>25</height>
         </size>
        </property>
       </widget>
@@ -82,9 +98,9 @@
        <property name="geometry">
         <rect>
          <x>130</x>
-         <y>20</y>
-         <width>50</width>
-         <height>50</height>
+         <y>35</y>
+         <width>30</width>
+         <height>30</height>
         </rect>
        </property>
        <property name="sizePolicy">
@@ -95,20 +111,20 @@
        </property>
        <property name="minimumSize">
         <size>
-         <width>50</width>
-         <height>50</height>
+         <width>30</width>
+         <height>30</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>50</width>
-         <height>50</height>
+         <width>30</width>
+         <height>30</height>
         </size>
        </property>
        <property name="styleSheet">
         <string notr="true">border-radius: 3px;
 border:1px solid black;
-background-color: rgb(126, 126, 126);</string>
+background-color: rgb(255, 255, 255);</string>
        </property>
        <property name="icon">
         <iconset resource="resources.qrc">
@@ -116,19 +132,22 @@ background-color: rgb(126, 126, 126);</string>
        </property>
        <property name="iconSize">
         <size>
-         <width>45</width>
-         <height>45</height>
+         <width>25</width>
+         <height>25</height>
         </size>
        </property>
       </widget>
       <widget class="QSlider" name="Slider_DrawSize">
        <property name="geometry">
         <rect>
-         <x>200</x>
-         <y>40</y>
+         <x>212</x>
+         <y>45</y>
          <width>160</width>
          <height>31</height>
         </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">border: none;</string>
        </property>
        <property name="minimum">
         <number>1</number>
@@ -143,11 +162,15 @@ background-color: rgb(126, 126, 126);</string>
       <widget class="QLabel" name="label_DrawSize">
        <property name="geometry">
         <rect>
-         <x>200</x>
-         <y>20</y>
-         <width>161</width>
+         <x>212</x>
+         <y>25</y>
+         <width>160</width>
          <height>20</height>
         </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">border: 1px solid black;
+background-color: white;</string>
        </property>
        <property name="text">
         <string>Размер кисти: 1px</string>
@@ -157,7 +180,7 @@ background-color: rgb(126, 126, 126);</string>
        <property name="geometry">
         <rect>
          <x>420</x>
-         <y>20</y>
+         <y>24</y>
          <width>20</width>
          <height>20</height>
         </rect>
@@ -179,13 +202,16 @@ background-color: rgb(126, 126, 126);</string>
          <width>20</width>
          <height>20</height>
         </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">border: 1px solid black;</string>
        </property>
       </widget>
       <widget class="QPushButton" name="SecondColor">
        <property name="geometry">
         <rect>
          <x>420</x>
-         <y>50</y>
+         <y>57</y>
          <width>20</width>
          <height>20</height>
         </rect>
@@ -207,6 +233,9 @@ background-color: rgb(126, 126, 126);</string>
          <width>20</width>
          <height>20</height>
         </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">border: 1px solid black;</string>
        </property>
       </widget>
       <widget class="QGroupBox" name="PaletteGroup">
@@ -217,6 +246,9 @@ background-color: rgb(126, 126, 126);</string>
          <width>311</width>
          <height>81</height>
         </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">border:none;</string>
        </property>
        <layout class="QGridLayout" name="gridLayout">
         <property name="leftMargin">
@@ -249,7 +281,7 @@ background-color: rgb(126, 126, 126);</string>
            <enum>Qt::ContextMenuPolicy::CustomContextMenu</enum>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: #7F7F7F;border:2px solid black;</string>
+           <string notr="true">background-color: #7F7F7F;border:1px solid black;</string>
           </property>
          </widget>
         </item>
@@ -277,7 +309,7 @@ background-color: rgb(126, 126, 126);</string>
            <enum>Qt::ContextMenuPolicy::CustomContextMenu</enum>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: #880015;border:2px solid black;</string>
+           <string notr="true">background-color: #880015;border:1px solid black;</string>
           </property>
          </widget>
         </item>
@@ -305,7 +337,7 @@ background-color: rgb(126, 126, 126);</string>
            <enum>Qt::ContextMenuPolicy::CustomContextMenu</enum>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: #000000;border:2px solid black;</string>
+           <string notr="true">background-color: #000000;border:1px solid black;</string>
           </property>
          </widget>
         </item>
@@ -333,7 +365,7 @@ background-color: rgb(126, 126, 126);</string>
            <enum>Qt::ContextMenuPolicy::CustomContextMenu</enum>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: #3F48CC;border:2px solid black;</string>
+           <string notr="true">background-color: #3F48CC;border:1px solid black;</string>
           </property>
          </widget>
         </item>
@@ -361,7 +393,7 @@ background-color: rgb(126, 126, 126);</string>
            <enum>Qt::ContextMenuPolicy::CustomContextMenu</enum>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: #00A2E8;border:2px solid black;</string>
+           <string notr="true">background-color: #00A2E8;border:1px solid black;</string>
           </property>
          </widget>
         </item>
@@ -389,7 +421,7 @@ background-color: rgb(126, 126, 126);</string>
            <enum>Qt::ContextMenuPolicy::CustomContextMenu</enum>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: #A349A4;border:2px solid black;</string>
+           <string notr="true">background-color: #A349A4;border:1px solid black;</string>
           </property>
          </widget>
         </item>
@@ -417,7 +449,7 @@ background-color: rgb(126, 126, 126);</string>
            <enum>Qt::ContextMenuPolicy::CustomContextMenu</enum>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: #ED1C24;border:2px solid black;</string>
+           <string notr="true">background-color: #ED1C24;border:1px solid black;</string>
           </property>
          </widget>
         </item>
@@ -445,7 +477,7 @@ background-color: rgb(126, 126, 126);</string>
            <enum>Qt::ContextMenuPolicy::CustomContextMenu</enum>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: #22B14C;border:2px solid black;</string>
+           <string notr="true">background-color: #22B14C;border:1px solid black;</string>
           </property>
          </widget>
         </item>
@@ -473,7 +505,7 @@ background-color: rgb(126, 126, 126);</string>
            <enum>Qt::ContextMenuPolicy::CustomContextMenu</enum>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: #FFF200;border:2px solid black;</string>
+           <string notr="true">background-color: #FFF200;border:1px solid black;</string>
           </property>
          </widget>
         </item>
@@ -501,7 +533,7 @@ background-color: rgb(126, 126, 126);</string>
            <enum>Qt::ContextMenuPolicy::CustomContextMenu</enum>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: #FF7F27;border:2px solid black;</string>
+           <string notr="true">background-color: #FF7F27;border:1px solid black;</string>
           </property>
          </widget>
         </item>
@@ -529,7 +561,7 @@ background-color: rgb(126, 126, 126);</string>
            <enum>Qt::ContextMenuPolicy::CustomContextMenu</enum>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: #FFFFFF;border:2px solid black;</string>
+           <string notr="true">background-color: #FFFFFF;border:1px solid black;</string>
           </property>
          </widget>
         </item>
@@ -557,7 +589,7 @@ background-color: rgb(126, 126, 126);</string>
            <enum>Qt::ContextMenuPolicy::CustomContextMenu</enum>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: #C3C3C3;border:2px solid black;</string>
+           <string notr="true">background-color: #C3C3C3;border:1px solid black;</string>
           </property>
          </widget>
         </item>
@@ -585,7 +617,7 @@ background-color: rgb(126, 126, 126);</string>
            <enum>Qt::ContextMenuPolicy::CustomContextMenu</enum>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: #B97A57;border:2px solid black;</string>
+           <string notr="true">background-color: #B97A57;border:1px solid black;</string>
           </property>
          </widget>
         </item>
@@ -613,7 +645,7 @@ background-color: rgb(126, 126, 126);</string>
            <enum>Qt::ContextMenuPolicy::CustomContextMenu</enum>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: #FFAEC9;border:2px solid black;</string>
+           <string notr="true">background-color: #FFAEC9;border:1px solid black;</string>
           </property>
          </widget>
         </item>
@@ -641,7 +673,7 @@ background-color: rgb(126, 126, 126);</string>
            <enum>Qt::ContextMenuPolicy::CustomContextMenu</enum>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: #FFC90E;border:2px solid black;</string>
+           <string notr="true">background-color: #FFC90E;border:1px solid black;</string>
           </property>
          </widget>
         </item>
@@ -669,7 +701,7 @@ background-color: rgb(126, 126, 126);</string>
            <enum>Qt::ContextMenuPolicy::CustomContextMenu</enum>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: #EFE4B0;border:2px solid black;</string>
+           <string notr="true">background-color: #EFE4B0;border:1px solid black;</string>
           </property>
          </widget>
         </item>
@@ -697,7 +729,7 @@ background-color: rgb(126, 126, 126);</string>
            <enum>Qt::ContextMenuPolicy::CustomContextMenu</enum>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: #B5E61D;border:2px solid black;</string>
+           <string notr="true">background-color: #B5E61D;border:1px solid black;</string>
           </property>
          </widget>
         </item>
@@ -725,7 +757,7 @@ background-color: rgb(126, 126, 126);</string>
            <enum>Qt::ContextMenuPolicy::CustomContextMenu</enum>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: #99D9EA;border:2px solid black;</string>
+           <string notr="true">background-color: #99D9EA;border:1px solid black;</string>
           </property>
          </widget>
         </item>
@@ -753,7 +785,7 @@ background-color: rgb(126, 126, 126);</string>
            <enum>Qt::ContextMenuPolicy::CustomContextMenu</enum>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: #7092BE;border:2px solid black;</string>
+           <string notr="true">background-color: #7092BE;border:1px solid black;</string>
           </property>
          </widget>
         </item>
@@ -781,7 +813,7 @@ background-color: rgb(126, 126, 126);</string>
            <enum>Qt::ContextMenuPolicy::CustomContextMenu</enum>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: #C8BFE7;border:2px solid black;</string>
+           <string notr="true">background-color: #C8BFE7;border:1px solid black;</string>
           </property>
          </widget>
         </item>
@@ -790,10 +822,10 @@ background-color: rgb(126, 126, 126);</string>
       <widget class="QPushButton" name="button_fill">
        <property name="geometry">
         <rect>
-         <x>10</x>
-         <y>20</y>
-         <width>50</width>
-         <height>50</height>
+         <x>30</x>
+         <y>35</y>
+         <width>30</width>
+         <height>30</height>
         </rect>
        </property>
        <property name="sizePolicy">
@@ -804,20 +836,19 @@ background-color: rgb(126, 126, 126);</string>
        </property>
        <property name="minimumSize">
         <size>
-         <width>50</width>
-         <height>50</height>
+         <width>30</width>
+         <height>30</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>50</width>
-         <height>50</height>
+         <width>30</width>
+         <height>30</height>
         </size>
        </property>
        <property name="styleSheet">
         <string notr="true">border-radius: 3px;
-border:1px solid black;
-background-color: rgb(126, 126, 126);</string>
+border:1px solid black;background-color: rgb(255, 255, 255);</string>
        </property>
        <property name="icon">
         <iconset resource="resources.qrc">
@@ -825,8 +856,8 @@ background-color: rgb(126, 126, 126);</string>
        </property>
        <property name="iconSize">
         <size>
-         <width>45</width>
-         <height>45</height>
+         <width>25</width>
+         <height>25</height>
         </size>
        </property>
       </widget>
@@ -834,6 +865,56 @@ background-color: rgb(126, 126, 126);</string>
     </item>
     <item>
      <widget class="QScrollArea" name="PaintArea">
+      <property name="styleSheet">
+       <string notr="true">QScrollArea {
+border:none;
+}
+QScrollBar:vertical {
+    border:none;
+    background: #f0f0f0; /* Цвет фона */
+    width: 12px; /* Ширина скроллбара */
+}
+
+QScrollBar::handle:vertical {
+    background: #b0b0b0; /* Цвет ползунка */
+    min-height: 20px; /* Минимальная высота ползунка */
+}
+
+QScrollBar::handle:vertical:hover {
+    background: #a0a0a0; /* Цвет ползунка при наведении */
+}
+
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+    background: none; /* Убираем фоновый цвет для стрелок */
+}
+
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+    background: none; /* Убираем фоновый цвет для страниц */
+}
+
+QScrollBar:horizontal {
+    border:none;
+    background: #f0f0f0; /* Цвет фона */
+    height: 12px; /* Высота скроллбара */
+}
+
+QScrollBar::handle:horizontal {
+    background: #b0b0b0; /* Цвет ползунка */
+    min-width: 20px; /* Минимальная ширина ползунка */
+}
+
+QScrollBar::handle:horizontal:hover {
+    background: #a0a0a0; /* Цвет ползунка при наведении */
+}
+
+QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal {
+    background: none; /* Убираем фоновый цвет для стрелок */
+}
+
+QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
+    background: none; /* Убираем фоновый цвет для страниц */
+}</string>
+      </property>
       <property name="widgetResizable">
        <bool>true</bool>
       </property>
@@ -845,8 +926,8 @@ background-color: rgb(126, 126, 126);</string>
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>780</width>
-         <height>431</height>
+         <width>800</width>
+         <height>442</height>
         </rect>
        </property>
       </widget>
@@ -863,7 +944,14 @@ background-color: rgb(126, 126, 126);</string>
      <height>21</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: white;</string>
+   </property>
    <widget class="QMenu" name="menu_File">
+    <property name="styleSheet">
+     <string notr="true">background-color:rgb(231, 231, 231);
+border: 1px solid rgb(208, 208, 208);</string>
+    </property>
     <property name="title">
      <string>Файл</string>
     </property>

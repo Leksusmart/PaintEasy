@@ -162,7 +162,7 @@ void PaintArea::drawPixel(QMouseEvent *event)
             return;
          QColor targetColor = image.pixelColor(CenterPixel);
          if (targetColor != *color) {
-            QQueue<QPoint> queue; // Используем очередь вместо стека
+            QQueue<QPoint> queue;
             queue.enqueue(CenterPixel);
 
             while (!queue.isEmpty()) {
@@ -183,7 +183,7 @@ void PaintArea::drawPixel(QMouseEvent *event)
 
                   for (const QPoint &neighbor : neighbors) {
                      if (neighbor.x() >= 0 && neighbor.x() < image.width() && neighbor.y() >= 0 && neighbor.y() < image.height() && image.pixelColor(neighbor) == targetColor) {
-                        queue.enqueue(neighbor); // Добавляем в очередь
+                        queue.enqueue(neighbor);
                      }
                   }
                }
