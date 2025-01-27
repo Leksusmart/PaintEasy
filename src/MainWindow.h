@@ -38,7 +38,7 @@ private slots:
 private:
    Ui::MainWindow *ui;
    PaintArea *paintArea;
-   QImage image; // Изображение для рисования
+   QImage image;
    bool dragging = false;
    QPoint lastMousePos;
 

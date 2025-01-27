@@ -3,9 +3,11 @@
 #include "src/ui_MainWindow.h"
 
 #include <QFileDialog>
+#include <QInputDialog>
 #include <QMessageBox>
 #include <QScrollBar>
 #include <QShortcut>
+#include <QSpinBox>
 
 MainWindow::MainWindow(QWidget *parent)
    : QMainWindow(parent)
@@ -16,9 +18,6 @@ MainWindow::MainWindow(QWidget *parent)
    paintArea = new PaintArea(ui->PaintArea, this);
    ui->PaintArea->setWidget(paintArea);
    ui->PaintArea->setWidgetResizable(true);
-   ui->PaintArea->setFocusPolicy(Qt::StrongFocus);
-   ui->PaintArea->setFocus();
-
    QShortcut *redo = new QShortcut(QKeySequence("Ctrl+Z"), this);
    connect(redo, &QShortcut::activated, [this]() { paintArea->stepBack(); });
 
@@ -49,14 +48,59 @@ MainWindow::MainWindow(QWidget *parent)
       ui->button_eraser->setStyleSheet("border:1px solid black;border-radius: 3px;background-color: white;");
       ui->button_fill->setStyleSheet("border:2px solid blue;border-radius: 3px;background-color: white;");
    });
+   connect(ui->button_upscale, &QPushButton::clicked, [this]() {
+      QDialog dialog(this);
+      dialog.setWindowTitle("Выберите размер изображения");
+
+      QVBoxLayout layoutV(&dialog);
+
+      QHBoxLayout layoutH;
+
+      QSpinBox *widthSpinBox = new QSpinBox();
+      widthSpinBox->setRange(1, 10000);
+      widthSpinBox->setPrefix("Ширина: ");
+      widthSpinBox->setValue(paintArea->getImage().width());
+      layoutH.addWidget(widthSpinBox);
+
+      QSpinBox *heightSpinBox = new QSpinBox();
+      heightSpinBox->setRange(1, 10000);
+      heightSpinBox->setPrefix("Высота: ");
+      heightSpinBox->setValue(paintArea->getImage().height());
+      layoutH.addWidget(heightSpinBox);
+
+      QPushButton *okButton = new QPushButton("OK");
+      layoutV.addLayout(&layoutH);
+      layoutV.addWidget(okButton);
+
+      connect(okButton, &QPushButton::clicked, [&dialog, this, widthSpinBox, heightSpinBox]() {
+         dialog.accept();
+         // Рассчитываем масштаб, чтобы изображение полностью помещалось в окно
+         double widthScale = (double) (ui->PaintArea->width() - paintArea->margin * 2) / widthSpinBox->value();
+         double heightScale = (double) (ui->PaintArea->height() - paintArea->margin * 2) / heightSpinBox->value();
+         double scale = qMin(widthScale, heightScale);
+         QSize newSize(widthSpinBox->value(), heightSpinBox->value());
+         QImage originalImage = paintArea->getImage();
+         QImage scaledImage;
+
+         // Увеличиваем изображение с добавлением белого фона
+         if (newSize.width() > originalImage.width() || newSize.height() > originalImage.height()) {
+            scaledImage = QImage(newSize, QImage::Format_ARGB32);
+            scaledImage.fill(Qt::transparent);
+            QPainter painter(&scaledImage);
+            painter.drawImage(0, 0, originalImage);
+         } else {
+            // Обрезаем изображение до нового размера
+            scaledImage = originalImage.copy(0, 0, newSize.width(), newSize.height());
+         }
+         paintArea->setImage(scaledImage, scale);
+      });
+
+      dialog.exec();
+   });
    connect(ui->Slider_DrawSize, &QSlider::valueChanged, [this]() {
       paintArea->drawSize = ui->Slider_DrawSize->value();
       ui->label_DrawSize->setText("Размер кисти: " + QString::number(ui->Slider_DrawSize->value()) + "px");
    });
-   updateColors();
-
-   ui->FirstColor->setStyleSheet(QString("background-color: %1;border:2px solid blue;").arg(activeColor.name()));
-   ui->SecondColor->setStyleSheet(QString("background-color: %1;border:1px solid black;").arg(secondColor.name()));
 
    connect(ui->SecondColor, &QPushButton::clicked, [this]() {
       if (ui->SecondColor->styleSheet() == QString("background-color: %1;border:1px solid black;").arg(secondColor.name())) {
@@ -99,6 +143,10 @@ MainWindow::MainWindow(QWidget *parent)
    connect(ui->Color_18, &QPushButton::clicked, [this]() { updateColors(ui->Color_18, activeColor); });
    connect(ui->Color_19, &QPushButton::clicked, [this]() { updateColors(ui->Color_19, activeColor); });
    connect(ui->Color_20, &QPushButton::clicked, [this]() { updateColors(ui->Color_20, activeColor); });
+   connect(ui->Color_21, &QPushButton::clicked, [this]() {
+      activeColor = Qt::transparent;
+      updateColors();
+   });
 
    connect(ui->Color_1, &QPushButton::customContextMenuRequested, [this]() { updateColors(ui->Color_1, secondColor); });
    connect(ui->Color_2, &QPushButton::customContextMenuRequested, [this]() { updateColors(ui->Color_2, secondColor); });
@@ -120,6 +168,14 @@ MainWindow::MainWindow(QWidget *parent)
    connect(ui->Color_18, &QPushButton::customContextMenuRequested, [this]() { updateColors(ui->Color_18, secondColor); });
    connect(ui->Color_19, &QPushButton::customContextMenuRequested, [this]() { updateColors(ui->Color_19, secondColor); });
    connect(ui->Color_20, &QPushButton::customContextMenuRequested, [this]() { updateColors(ui->Color_20, secondColor); });
+   connect(ui->Color_21, &QPushButton::customContextMenuRequested, [this]() {
+      secondColor = Qt::transparent;
+      updateColors();
+   });
+
+   updateColors();
+   ui->FirstColor->setStyleSheet(QString("background-color: %1;border:2px solid blue;").arg(activeColor.name()));
+   ui->SecondColor->setStyleSheet(QString("background-color: %1;border:1px solid black;").arg(secondColor.name()));
 }
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
@@ -155,12 +211,30 @@ void MainWindow::updateColors()
 {
    paintArea->color1 = activeColor;
    paintArea->color2 = secondColor;
+   QString backgroundTranparentA = "background-image: url(:/image/Background_transparent.png);border:2px solid blue;";
+   QString backgroundTranparent = "background-image: url(:/image/Background_transparent.png);border:1px solid black;";
    if (ui->FirstColor->styleSheet().contains("blue")) {
-      ui->FirstColor->setStyleSheet(QString("background-color: %1;border:2px solid blue;").arg(activeColor.name()));
-      ui->SecondColor->setStyleSheet(QString("background-color: %1;border:2px solid black;").arg(secondColor.name()));
+      if (activeColor == Qt::transparent) {
+         ui->FirstColor->setStyleSheet(backgroundTranparentA);
+      } else {
+         ui->FirstColor->setStyleSheet(QString("background-color: %1;border:2px solid blue;").arg(activeColor.name()));
+      }
+      if (secondColor == Qt::transparent) {
+         ui->SecondColor->setStyleSheet(backgroundTranparent);
+      } else {
+         ui->SecondColor->setStyleSheet(QString("background-color: %1;border:1px solid black;").arg(secondColor.name()));
+      }
    } else if (ui->SecondColor->styleSheet().contains("blue")) {
-      ui->SecondColor->setStyleSheet(QString("background-color: %1;border:2px solid blue;").arg(activeColor.name()));
-      ui->FirstColor->setStyleSheet(QString("background-color: %1;border:2px solid black;").arg(secondColor.name()));
+      if (activeColor == Qt::transparent) {
+         ui->SecondColor->setStyleSheet(backgroundTranparentA);
+      } else {
+         ui->SecondColor->setStyleSheet(QString("background-color: %1;border:2px solid blue;").arg(activeColor.name()));
+      }
+      if (secondColor == Qt::transparent) {
+         ui->FirstColor->setStyleSheet(backgroundTranparent);
+      } else {
+         ui->FirstColor->setStyleSheet(QString("background-color: %1;border:1px solid black;").arg(secondColor.name()));
+      }
    }
 }
 void MainWindow::mousePressEvent(QMouseEvent *event)

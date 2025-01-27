@@ -13,9 +13,9 @@ PaintArea::PaintArea(QScrollArea *scrollArea, QWidget *parent)
 {
    image = QImage(200, 200, QImage::Format_ARGB32);
    image.fill(Qt::white);
+   setImage(getImage(), 1.655);
    setFocusPolicy(Qt::StrongFocus);
    setFocus();
-   update();
 }
 void PaintArea::stepBack()
 {
@@ -44,12 +44,11 @@ QImage PaintArea::getImage()
 }
 void PaintArea::paintEvent(QPaintEvent *event)
 {
-   QPainter painter(this);
-
-   painter.translate(QPoint(margin, margin));
-   painter.scale(scaleFactor, scaleFactor);
-   painter.drawTiledPixmap(QRect(0, 0, image.width(), image.height()), QPixmap(":/image/Background_transparent.png"));
-   painter.drawImage(0, 0, image);
+   QPainter Painter(this);
+   Painter.translate(QPoint(margin, margin));
+   Painter.scale(scaleFactor, scaleFactor);
+   Painter.drawTiledPixmap(QRect(0, 0, image.width(), image.height()), QPixmap(":/image/Background_transparent.png"));
+   Painter.drawImage(0, 0, image);
 
    this->setFixedSize(image.size() * scaleFactor + QSize(margin * 2, margin * 2));
 }
@@ -122,7 +121,6 @@ void PaintArea::drawPixel(QMouseEvent *event)
    if (CenterPixel.x() >= 0 && CenterPixel.x() < image.width() && CenterPixel.y() >= 0 && CenterPixel.y() < image.height()) {
       if (isEraserActive) {
          stateChanged = true;
-         QImage background(":/image/Background_transparent.png");
 
          // Рисуем квадрат для стирания
          int halfSize = drawSize / 2;
@@ -130,9 +128,7 @@ void PaintArea::drawPixel(QMouseEvent *event)
             for (int y = -halfSize; y <= halfSize; ++y) {
                QPoint pointToErase = CenterPixel + QPoint(x, y);
                if (pointToErase.x() >= 0 && pointToErase.x() < image.width() && pointToErase.y() >= 0 && pointToErase.y() < image.height()) {
-                  int backgrounx = pointToErase.x() % background.width();
-                  int backgrouny = pointToErase.y() % background.height();
-                  if (image.pixelColor(pointToErase) != background.pixel(backgrounx, backgrouny)) {
+                  if (image.pixelColor(pointToErase) != Qt::transparent) {
                      // Проверяем, содержится ли точка в массиве
                      bool pointExists = false;
                      for (const auto &pair : array) {
@@ -146,7 +142,7 @@ void PaintArea::drawPixel(QMouseEvent *event)
                         QPair<QColor, QPoint> pair = qMakePair(image.pixelColor(pointToErase), pointToErase);
                         array.push_back(pair);
                      }
-                     image.setPixel(pointToErase, background.pixel(backgrounx, backgrouny));
+                     image.setPixel(pointToErase, Qt::transparent);
                   }
                }
             }

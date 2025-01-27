@@ -4,5 +4,6 @@
         <file>image/Background_transparent.png</file>
         <file>image/pencil.png</file>
         <file>image/bucket.png</file>
+        <file>image/upscale.png</file>
     </qresource>
 </RCC>
