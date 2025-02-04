@@ -2,9 +2,9 @@ set(PROJECT_NAME "PaintEasy")
 cmake_minimum_required(VERSION 3.16)
 
 if (WIN32)
-    project(PaintEasy LANGUAGES CXX)
+    project(${PROJECT_NAME} LANGUAGES CXX)
 elseif(UNIX)
-    project(PaintEasy)
+    project(${PROJECT_NAME})
 endif()
 
 set(CMAKE_CONFIGURATION_TYPES "Release;MinSizeRel" CACHE STRING "" FORCE)
